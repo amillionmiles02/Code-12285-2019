@@ -145,6 +145,7 @@ public class AutoTensorDepot extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
+            lowerLift();
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
@@ -173,14 +174,14 @@ public class AutoTensorDepot extends LinearOpMode {
                         }
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) { //LEFT
-
+                            runLeft();
                             telemetry.addData("Gold Mineral Position", "Left");
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) { //RIGHT
-
+                              runRight();
                             telemetry.addData("Gold Mineral Position", "Right");
                           } else { //CENTER
                               //intake
-                              encoderDrive(DRIVE_SPEED,  60,  60, 5.0);
+                              runCenter();
                               //outtake
 
                               telemetry.addData("Gold Mineral Position", "Center");
@@ -225,6 +226,23 @@ public class AutoTensorDepot extends LinearOpMode {
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+    }
+    public void lowerLift() {
+        robot.liftLeft.setPower(-.6);
+        robot.liftRight.setPower(-.6);
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+            telemetry.addData("Pre-Sample", "Dropping Down", runtime.seconds());
+            telemetry.update();
+        }
+        onHeading(.3, -45, 0);
+        encoderDrive(.3, 1, 1, 0);
+        onHeading(.3, 45, 0);
+        robot.liftLeft.setPower(.6);
+        robot.liftRight.setPower(.6);
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+            telemetry.addData("PreSample", "Lowering Lift", runtime.seconds());
+            telemetry.update();
+        }
     }
     public void runLeft() {
         encoderDrive(.2, 12, 12, 4);

@@ -92,7 +92,7 @@ public class HardwareCompOne
         liftLeft = hwMap.get(DcMotor.class, "lift_Left");
        // reelIn = hwMap.get(DcMotor.class, "reelIn");
        // lift = hwMap.get(DcMotor.class, "reelOut");
-      //  bucket = hwMap.get(Servo.class, "bucket");
+        bucket = hwMap.get(Servo.class, "bucket");
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -123,11 +123,13 @@ public void turnLeft(){
     backLeft.setPower(-TURN_SPEED);
     backRight.setPower(TURN_SPEED);
 }
-//public void raise(){liftLeft.setPower(.6);
- //   liftRight.setPower(.6);}
-//public void lower(){liftRight.setPower(-.6);
- //   liftLeft.setPower(-.6);
-  //  }
+public void raise(){
+    liftLeft.setPower(.6);
+    liftRight.setPower(.6);}
+public void lower(){
+    liftRight.setPower(-.6);
+    liftLeft.setPower(-.6);
+    }
 
 public void turnRight() {
         frontLeft.setPower(TURN_SPEED);
@@ -148,7 +150,12 @@ public void driveStraight(){
         backRight.setPower(0); 
     
     }
-   
+    public void flipOut() {
+        bucket.setPosition(1);
+    }
+    public void flipIn() {
+        bucket.setPosition(0);
+    }
 }
 
 

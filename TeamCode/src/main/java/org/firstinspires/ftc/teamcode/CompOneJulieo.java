@@ -52,8 +52,6 @@ public class CompOneJulieo extends LinearOpMode {
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
 
-            
-  
         if (backPressed && driveToggle == false) {
             driveToggle = true;
         }
@@ -116,14 +114,13 @@ public class CompOneJulieo extends LinearOpMode {
              //  Julieo.reelIn.setPower(0);
           // }
 
-            /*
-           if (gamepad2.right_stick_y >= .3) {
+
+           if (gamepad2.a) {
                Julieo.bucket.setPosition(1);
            }
-           else if (gamepad2.right_stick_y <= -.3) {
+           else if (gamepad2.b) {
                Julieo.bucket.setPosition(0);
-           } */
-
+           }
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
