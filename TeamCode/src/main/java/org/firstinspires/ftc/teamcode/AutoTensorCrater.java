@@ -62,8 +62,7 @@ public class AutoTensorCrater extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     ModernRoboticsI2cGyro gyro    = null;                    // Additional Gyro device
 
-
-
+    
     // These constants define the desired driving/control characteristics
     // The can/should be tweaked to suite the specific robot drive train.
 

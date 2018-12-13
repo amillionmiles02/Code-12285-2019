@@ -95,8 +95,8 @@ public class HardwareCompOne
         bucket = hwMap.get(Servo.class, "bucket");
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.FORWARD);
         liftRight.setDirection(DcMotor.Direction.REVERSE);
 
