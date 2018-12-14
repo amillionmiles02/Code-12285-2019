@@ -20,14 +20,14 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="CompOneJulieo", group="Linear Opmode")
-public class CompOneJulieo extends LinearOpMode {
+@TeleOp(name="CompOneTwo", group="Linear Opmode")
+public class CompOneTwo extends LinearOpMode {
     HardwareCompOne          Julieo  = new HardwareCompOne();
     ElapsedTime                 runtime = new ElapsedTime();
     @Override
     public void runOpMode() {
         Julieo.init(hardwareMap);
-        
+
         telemetry.addData("Status", "Ready Man");
         telemetry.update();
         waitForStart();
@@ -45,84 +45,85 @@ public class CompOneJulieo extends LinearOpMode {
             boolean backPressed = gamepad1.x;
             boolean driveLastPass = false;
             boolean driveToggle = false;
-            
+
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
             liftPower = Range.clip(liftPower, -.6, .6);
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
 
-        if (backPressed && driveToggle == false) {
-            driveToggle = true;
-        }
+         //   if (backPressed && driveToggle == false) {
+          //      driveToggle = true;
+           // }
 
-        else if (backPressed && driveToggle == true) {
-            driveToggle = false;
-        }
+            //else if (backPressed && driveToggle == true) {
+             //   driveToggle = false;
+            //}
 
-        if (driveToggle == false) {
-            leftGo = Range.clip(drive - turn, -.75, .75);
-            rightGo = Range.clip(drive + turn, -.75, .75);
-        }
+            //if (driveToggle == false) {
+             //   leftGo = Range.clip(drive - turn, -.75, .75);
+            //    rightGo = Range.clip(drive + turn, -.75, .75);
+            //}
 
-        else {
-            leftGo = Range.clip(drive - turn, -1, 1);
-            rightGo = Range.clip(drive + turn, -1, 1);
-            driveLastPass = backPressed;
-        }
-            
-            Julieo.frontLeft.setPower(leftGo);
-            Julieo.frontRight.setPower(rightGo);
+            //else {
+                leftGo = Range.clip(drive + turn, -1, 1);
+                rightGo = Range.clip(drive - turn, -1, 1);
+            //    driveLastPass = backPressed;
+            //}
+
+            Julieo.frontLeft.setPower(-leftGo);
+            Julieo.frontRight.setPower(-rightGo);
             Julieo.backLeft.setPower(-leftGo);
             Julieo.backRight.setPower(-rightGo);
             Julieo.liftRight.setPower(liftPower);
             Julieo.liftLeft.setPower(liftPower);
-         //   if (gamepad2.left_trigger >= .4) {
-          //      Julieo.intake.setPower(.4);
-           // }
+            //   if (gamepad2.left_trigger >= .4) {
+            //      Julieo.intake.setPower(.4);
+            // }
             //else if (gamepad2.right_trigger >= .4) {
-             //   Julieo.intake.setPower(-.4);
+            //   Julieo.intake.setPower(-.4);
             //}
-           // else {
+            // else {
             //    Julieo.intake.setPower(0);
             //}
-           // if (gamepad2.a) {
+            // if (gamepad2.a) {
             //    Julieo.lift.setPower(.5);
-           // }
-          //  else if (gamepad2.b) {
-           //     Julieo.lift.setPower(-.5);
+            // }
+            //  else if (gamepad2.b) {
+            //     Julieo.lift.setPower(-.5);
             //}
-           // else {
+            // else {
             //    Julieo.lift.setPower(0);
-           // }
-           // if (gamepad2.left_bumper) {
+            // }
+            // if (gamepad2.left_bumper) {
             //    Julieo.intake.setPower(1);
             //}
-           // else if (gamepad2.right_bumper) {
+            // else if (gamepad2.right_bumper) {
             //    Julieo.intake.setPower(-1);
             //}
-           // else {
+            // else {
             //    Julieo.intake.setPower(.01);
             ///}
-           //if (gamepad2.y) {
+            //if (gamepad2.y) {
             //   Julieo.reelIn.setPower(.4);
-          // }
-           //else if (gamepad2.x) {
+            // }
+            //else if (gamepad2.x) {
             //   Julieo.reelIn.setPower(-.4);
-          // }
-           //else {
-             //  Julieo.reelIn.setPower(0);
-          // }
+            // }
+            //else {
+            //  Julieo.reelIn.setPower(0);
+            // }
 
 
-           if (gamepad2.a) {
-               Julieo.bucket.setPosition(1);
-           }
-           else if (gamepad2.b) {
-               Julieo.bucket.setPosition(0);
-           }
+            if (gamepad2.a) {
+                Julieo.bucket.setPosition(1);
+            }
+            else if (gamepad2.b) {
+                Julieo.bucket.setPosition(0);
+            }
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
     }
 }
+
