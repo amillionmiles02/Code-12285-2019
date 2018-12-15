@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -30,6 +31,13 @@ public class CompOneTwo extends LinearOpMode {
 
         telemetry.addData("Status", "Ready Man");
         telemetry.update();
+
+        Julieo.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Julieo.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Julieo.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Julieo.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Julieo.liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Julieo.liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
         runtime.reset();
 
@@ -37,6 +45,7 @@ public class CompOneTwo extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
+
             double leftGo;
             double rightGo;
             double liftPower = -gamepad2.left_stick_y;
@@ -46,11 +55,8 @@ public class CompOneTwo extends LinearOpMode {
             boolean driveLastPass = false;
             boolean driveToggle = false;
 
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
+
             liftPower = Range.clip(liftPower, -.6, .6);
-            // POV Mode uses left stick to go forward, and right stick to turn.
-            // - This uses basic math to combine motions and is easier to drive straight.
 
          //   if (backPressed && driveToggle == false) {
           //      driveToggle = true;
@@ -77,42 +83,8 @@ public class CompOneTwo extends LinearOpMode {
             Julieo.backRight.setPower(-rightGo);
             Julieo.liftRight.setPower(liftPower);
             Julieo.liftLeft.setPower(liftPower);
-            //   if (gamepad2.left_trigger >= .4) {
-            //      Julieo.intake.setPower(.4);
-            // }
-            //else if (gamepad2.right_trigger >= .4) {
-            //   Julieo.intake.setPower(-.4);
-            //}
-            // else {
-            //    Julieo.intake.setPower(0);
-            //}
-            // if (gamepad2.a) {
-            //    Julieo.lift.setPower(.5);
-            // }
-            //  else if (gamepad2.b) {
-            //     Julieo.lift.setPower(-.5);
-            //}
-            // else {
-            //    Julieo.lift.setPower(0);
-            // }
-            // if (gamepad2.left_bumper) {
-            //    Julieo.intake.setPower(1);
-            //}
-            // else if (gamepad2.right_bumper) {
-            //    Julieo.intake.setPower(-1);
-            //}
-            // else {
-            //    Julieo.intake.setPower(.01);
-            ///}
-            //if (gamepad2.y) {
-            //   Julieo.reelIn.setPower(.4);
-            // }
-            //else if (gamepad2.x) {
-            //   Julieo.reelIn.setPower(-.4);
-            // }
-            //else {
-            //  Julieo.reelIn.setPower(0);
-            // }
+
+
 
 
             if (gamepad2.a) {
