@@ -40,9 +40,15 @@ public class CompOneJulieo extends LinearOpMode {
             double leftGo;
             double rightGo;
             double liftPower = -gamepad2.left_stick_y;
+<<<<<<< HEAD
             double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             boolean backPressed = gamepad1.x;
+=======
+            double drive = gamepad1.left_stick_y;
+            double turn = -gamepad1.right_stick_x;
+            boolean backPressed = gamepad1.back;
+>>>>>>> 00ea54c473b000f77a7c72392a2072504aa73495
             boolean driveLastPass = false;
             boolean driveToggle = false;
             
@@ -61,8 +67,8 @@ public class CompOneJulieo extends LinearOpMode {
         }
 
         if (driveToggle == false) {
-            leftGo = Range.clip(drive - turn, -.75, .75);
-            rightGo = Range.clip(drive + turn, -.75, .75);
+            leftGo = Range.clip(drive - turn, -1, 1);
+            rightGo = Range.clip(drive + turn, -1, 1);
         }
 
         else {

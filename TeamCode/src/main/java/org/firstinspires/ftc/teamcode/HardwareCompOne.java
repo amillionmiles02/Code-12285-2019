@@ -93,10 +93,17 @@ public class HardwareCompOne
        // reelIn = hwMap.get(DcMotor.class, "reelIn");
        // lift = hwMap.get(DcMotor.class, "reelOut");
         bucket = hwMap.get(Servo.class, "bucket");
+<<<<<<< HEAD
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.FORWARD);
+=======
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+>>>>>>> 00ea54c473b000f77a7c72392a2072504aa73495
         liftLeft.setDirection(DcMotor.Direction.FORWARD);
         liftRight.setDirection(DcMotor.Direction.REVERSE);
 
