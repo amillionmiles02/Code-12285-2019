@@ -56,7 +56,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @Autonomous(name = "TensorDepot", group = "Concept")
-
+@Disabled
 public class AutoTensorDepot extends LinearOpMode {
     HardwareCompOne         robot   = new HardwareCompOne();   // Use a Scrimmage's hardware
     private ElapsedTime runtime = new ElapsedTime();

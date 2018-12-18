@@ -26,6 +26,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="EventTeleOP", group="Linear Opmode")
+@Disabled
 public class EventTeleOp extends LinearOpMode {
     HardwareEvent           Julieo  = new HardwareEvent();
     ElapsedTime                 runtime = new ElapsedTime();

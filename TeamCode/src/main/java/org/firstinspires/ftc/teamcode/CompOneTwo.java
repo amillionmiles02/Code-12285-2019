@@ -46,10 +46,10 @@ public class CompOneTwo extends LinearOpMode {
 
             // Setup a variable for each drive wheel to save power level for telemetry
 
-            double leftGo;
-            double rightGo;
+            double leftGo = -gamepad1.left_stick_y;
+            double rightGo = -gamepad1.right_stick_y;
             double liftPower = -gamepad2.left_stick_y;
-            double drive = -gamepad1.left_stick_y;
+        //    double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             boolean backPressed = gamepad1.x;
             boolean driveLastPass = false;
@@ -67,32 +67,26 @@ public class CompOneTwo extends LinearOpMode {
             //}
 
             //if (driveToggle == false) {
-             //   leftGo = Range.clip(drive - turn, -.75, .75);
-            //    rightGo = Range.clip(drive + turn, -.75, .75);
+              //  leftGo = Range.clip(drive - turn, -.75, .75);
+             //   rightGo = Range.clip(drive + turn, -.75, .75);
             //}
 
             //else {
-                leftGo = Range.clip(drive + turn, -1, 1);
-                rightGo = Range.clip(drive - turn, -1, 1);
+             //   leftGo = Range.clip(drive + turn, -1, 1);
+              //  rightGo = Range.clip(drive - turn, -1, 1);
             //    driveLastPass = backPressed;
             //}
-
-            Julieo.frontLeft.setPower(-leftGo);
-            Julieo.frontRight.setPower(-rightGo);
-            Julieo.backLeft.setPower(-leftGo);
-            Julieo.backRight.setPower(-rightGo);
+            Julieo.frontLeft.setPower(leftGo);
+            Julieo.frontRight.setPower(-leftGo);
+            Julieo.backLeft.setPower(-rightGo);
+            Julieo.backRight.setPower(rightGo);
             Julieo.liftRight.setPower(liftPower);
             Julieo.liftLeft.setPower(liftPower);
 
 
 
 
-            if (gamepad2.a) {
-                Julieo.bucket.setPosition(1);
-            }
-            else if (gamepad2.b) {
-                Julieo.bucket.setPosition(0);
-            }
+
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }

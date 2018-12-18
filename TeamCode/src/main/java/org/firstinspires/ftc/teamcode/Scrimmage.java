@@ -25,6 +25,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Scrimmage", group="Linear Opmode")
+@Disabled
 public class Scrimmage extends LinearOpMode {
     HardwareScrimmage           Julieo  = new HardwareScrimmage();
     ElapsedTime                 runtime = new ElapsedTime();

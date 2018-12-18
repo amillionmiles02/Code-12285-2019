@@ -64,7 +64,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Pushbot: Acoder", group="Pushbot")
-
+@Disabled
 public class EncodeEvent extends LinearOpMode {
 
     /* Declare OpMode members. */

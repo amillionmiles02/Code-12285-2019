@@ -33,6 +33,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -112,7 +113,10 @@ public class BasicDepot extends LinearOpMode {
         robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        //robot.backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        //robot.backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         gyro.calibrate();
         while (!isStopRequested() && gyro.isCalibrating())  {
             sleep(50);
@@ -126,7 +130,7 @@ public class BasicDepot extends LinearOpMode {
 
         if (opModeIsActive()) {
            // lowerLift();
-            encoderDrive(1, -36, -36, 1);
+            encoderDrive(1, -120, -120, 1);
 
          //   encoderDrive(.3, -18, 18, 2);
           //  telemetry.addData("Running Step Two", "Turn 45 degrees to the left");
@@ -306,9 +310,9 @@ public class BasicDepot extends LinearOpMode {
             // reset the timeout time and start motion.
             runtime.reset();
             robot.frontLeft.setPower(Math.abs(speed));
-            robot.frontRight.setPower(Math.abs(speed));
+            robot.frontRight.setPower(0);
             robot.backLeft.setPower(Math.abs(speed));
-            robot.backRight.setPower(Math.abs(speed));
+            robot.backRight.setPower(0);
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -21,6 +22,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="CompOneJulieo", group="Linear Opmode")
+
 public class CompOneJulieo extends LinearOpMode {
     HardwareCompOne          Julieo  = new HardwareCompOne();
     ElapsedTime                 runtime = new ElapsedTime();
@@ -40,15 +42,12 @@ public class CompOneJulieo extends LinearOpMode {
             double leftGo;
             double rightGo;
             double liftPower = -gamepad2.left_stick_y;
-<<<<<<< HEAD
-            double drive = -gamepad1.left_stick_y;
-            double turn = gamepad1.right_stick_x;
-            boolean backPressed = gamepad1.x;
-=======
+
+
             double drive = gamepad1.left_stick_y;
             double turn = -gamepad1.right_stick_x;
             boolean backPressed = gamepad1.back;
->>>>>>> 00ea54c473b000f77a7c72392a2072504aa73495
+
             boolean driveLastPass = false;
             boolean driveToggle = false;
             
@@ -77,7 +76,7 @@ public class CompOneJulieo extends LinearOpMode {
             driveLastPass = backPressed;
         }
             
-            Julieo.frontLeft.setPower(leftGo);
+            Julieo.frontLeft.setPower(-leftGo);
             Julieo.frontRight.setPower(rightGo);
             Julieo.backLeft.setPower(-leftGo);
             Julieo.backRight.setPower(-rightGo);

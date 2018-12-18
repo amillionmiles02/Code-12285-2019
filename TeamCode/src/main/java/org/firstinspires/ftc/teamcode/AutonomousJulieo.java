@@ -56,7 +56,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Pushbot: Auto Drive By Time", group="Pushbot")
-
+@Disabled
 public class AutonomousJulieo extends LinearOpMode {
 
     /* Declare OpMode members. */
