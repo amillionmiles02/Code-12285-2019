@@ -55,12 +55,12 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "BasicDepot", group = "Concept")
+@Autonomous(name = "DriveStraight", group = "Concept")
 
 public class BasicDepot extends LinearOpMode {
     HardwareCompOne         robot   = new HardwareCompOne();   // Use a Scrimmage's hardware
     private ElapsedTime runtime = new ElapsedTime();
-    ModernRoboticsI2cGyro gyro    = null;                    // Additional Gyro device
+    //ModernRoboticsI2cGyro gyro    = null;                    // Additional Gyro device
 
 
 
@@ -103,7 +103,7 @@ public class BasicDepot extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
-        gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+       // gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -117,11 +117,11 @@ public class BasicDepot extends LinearOpMode {
         robot.frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         //robot.backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        gyro.calibrate();
-        while (!isStopRequested() && gyro.isCalibrating())  {
-            sleep(50);
-            idle();
-        }
+     //   gyro.calibrate();
+     //   while (!isStopRequested() && gyro.isCalibrating())  {
+      //      sleep(50);
+      //      idle();
+      //  }
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to staert tracking");
         telemetry.update();
@@ -146,141 +146,10 @@ public class BasicDepot extends LinearOpMode {
      * Initialize the Vuforia localization engine.
      */
 
-    public void lowerLift() {
-        robot.liftLeft.setPower(-.6);
-        robot.liftRight.setPower(-.6);
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-            telemetry.addData("Pre-Sample", "Dropping Down", runtime.seconds());
-            telemetry.update();
-        }
-        onHeading(.3, -45, 0);
-        encoderDrive(.3, 1, 1, 0);
-        onHeading(.3, 0, 0);
-        robot.liftLeft.setPower(.6);
-        robot.liftRight.setPower(.6);
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-            telemetry.addData("PreSample", "Lowering Lift", runtime.seconds());
-            telemetry.update();
-        }
-    }
-    public void runLeft() {
-        encoderDrive(.2, 12, 12, 4);
-        telemetry.addData("Running Step One", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, -90, 0);
-        telemetry.addData("Running Step Two", "Turn 90 degrees to the left");
-        telemetry.update();
-        encoderDrive(.5, 12, 12, 4);
-        telemetry.addData("Running Step Three", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, 90, 0);
-        telemetry.addData("Running Step Four", "Turn 90 degrees to the right");
-        telemetry.update();
-        encoderDrive(.5, 12,12, 4);
-        telemetry.addData("Running Step Five", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, -45, 0);
-        telemetry.addData("Running Step Six", "Turn 45 degrees to the left");
-        telemetry.update();
-        encoderDrive(.5, 12, 12, 4);
-        telemetry.addData("Running Step Seven", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, 90, 0);
-        telemetry.addData("Running Step Eight", "Turn 90 degrees to the right");
-        telemetry.update();
-        encoderDrive(.5, 80, 80, 4);
-        telemetry.addData("Running Step Nine", "Driving 80 Inches Forward");
-        telemetry.update();
-        sleep(30000);
-        telemetry.addData("Running Step Ten", "Sleeping till program ends");
-        telemetry.update();
-    }
-    public void runRight() {
-        encoderDrive(.2, 12, 12, 4);
-        telemetry.addData("Running Step One", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, 90, 0); //Turn right(?)
-        telemetry.addData("Running Step Two", "Turn 90 degrees to the right");
-        telemetry.update();
-        encoderDrive(.5, 12, 12, 4);
-        telemetry.addData("Running Step Three", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, -90, 0); //Turn left
-        telemetry.addData("Running Step Four", "Turn 90 degrees to the left");
-        telemetry.update();
-        encoderDrive(.5, 12, 12, 4);
-        telemetry.addData("Running Step Five", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, 45, 0);
-        telemetry.addData("Running Step Six", "Turn 45 degrees to the right");
-        telemetry.update();
-        encoderDrive(.5, 12, 12, 4);
-        telemetry.addData("Running Step Seven", "Driving 12 Inches Forward");
-        telemetry.update();
-        onHeading(.5, 90,0);
-        telemetry.addData("Running Step Eight", "Turn 90 degrees to the right");
-        telemetry.update();
-        encoderDrive(.5, 80, 80, 4);
-        telemetry.addData("Running Step Nine", "Driving 80 Inches Forward");
-        telemetry.update();
-        sleep(30000);
-        telemetry.addData("Running Step Ten", "Sleeping till program ends");
-        telemetry.update();
-    }
-    public void runCenter() {
-        encoderDrive(.5,40,40,4); //robot plows through cube
-        telemetry.addData("Running Step One", "Driving 40 Inches Forward");
-        telemetry.update();
 
-        onHeading(.5,105, 0);
-        telemetry.addData("Running Step Two", "Turn 105 degrees to the right");
-        telemetry.update();
-        encoderDrive(.5, 100, 100, 4);
-        telemetry.addData("Running Step Three", "Driving 100 Inches Forward");
-        telemetry.update();
-        sleep(30000);
-        telemetry.addData("Running Step Four", "Sleeping till program ends");
-        telemetry.update();
-    }
-    public void driveStraight(double speed, int direction) {
 
-        double leftSpeed = 0;
-        double rightSpeed = 0;
 
-        double currentPos = gyro.getIntegratedZValue();
-        double target = 0;
 
-        if (direction == 1) {
-            leftSpeed = 0.55 - (currentPos - target) / 100;
-            rightSpeed = (0.5 + (currentPos - target) / 100); // inverse
-        }
-
-        else if (direction == -1) {
-            leftSpeed = (0.5 + (currentPos - target) / 100);
-            rightSpeed = (0.5 - (currentPos - target) / 100);
-        }
-
-        /*
-         * // Left - negative - current pos = -1, target = 0 leftSpeed = 0.5; rightSpeed
-         * = -0.5; /* LF.set((.5 + rotateToAngleRate) * 0.5); LB.set((.5 +
-         * rotateToAngleRate) * 0.5); RF.set((-.5 - rotateToAngleRate) * 0.5);
-         * RB.set((-.5 - rotateToAngleRate) * 0.5);
-         */
-
-        if (direction == 1) {
-            robot.frontLeft.setPower(leftSpeed);
-            robot.frontRight.setPower(rightSpeed);
-            robot.backLeft.setPower(leftSpeed);
-            robot.backRight.setPower(rightSpeed);
-        }
-
-        else if (direction == -1) {
-            robot.frontLeft.setPower(-leftSpeed);
-            robot.frontRight.setPower(-rightSpeed);
-            robot.backLeft.setPower(-leftSpeed);
-            robot.backRight.setPower(-rightSpeed);
-        }
-    }
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -348,110 +217,9 @@ public class BasicDepot extends LinearOpMode {
         }
     }
 
-    public void gyroTurn (  double speed, double angle) { //TURNS TO THE RIGHT
-
-        // keep looping while we are still active, and not on heading.
-        while (opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF)) {
-            // Update telemetry & Allow time for other processes to run.
-            telemetry.update();
-        }
-    }
 
 
 
-
-    public void gyroHold( double speed, double angle, double holdTime) {
-
-        ElapsedTime holdTimer = new ElapsedTime();
-
-        // keep looping while we have time remaining.
-        holdTimer.reset();
-        while (opModeIsActive() && (holdTimer.time() < holdTime)) {
-            // Update telemetry & Allow time for other processes to run.
-            onHeading(speed, angle, P_TURN_COEFF);
-            telemetry.update();
-        }
-
-        // Stop all motion;
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-    }
-
-    /**
-     * Perform one cycle of closed loop heading control.
-     *
-     * @param speed     Desired speed of turn.
-     * @param angle     Absolute Angle (in Degrees) relative to last gyro reset.
-     *                  0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
-     *                  If a relative angle is required, add/subtract from current heading.
-     * @param PCoeff    Proportional Gain coefficient
-     * @return
-     */
-    boolean onHeading(double speed, double angle, double PCoeff) {
-        double   error ;
-        double   steer ;
-        boolean  onTarget = false ;
-        double leftSpeed;
-        double rightSpeed;
-
-        // determine turn power based on +/- error
-        error = getError(angle);
-
-        if (Math.abs(error) <= HEADING_THRESHOLD) {
-            steer = 0.0;
-            leftSpeed  = 0.0;
-            rightSpeed = 0.0;
-            onTarget = true;
-        }
-        else {
-            steer = getSteer(error, PCoeff);
-            rightSpeed  = speed * steer;
-            leftSpeed   = -rightSpeed;
-        }
-
-        // Send desired speeds to motors.
-        robot.frontLeft.setPower(leftSpeed);
-        robot.frontRight.setPower(rightSpeed);
-        robot.backLeft.setPower(leftSpeed);
-        robot.backRight.setPower(rightSpeed);
-
-        // Display it for the driver.
-        telemetry.addData("Target", "%5.2f", angle);
-        telemetry.addData("Err/St", "%5.2f/%5.2f", error, steer);
-        telemetry.addData("Speed.", "%5.2f:%5.2f", leftSpeed, rightSpeed);
-
-        return onTarget;
-    }
-
-    /**
-     * getError determines the error between the target angle and the robot's current heading
-     * @param   targetAngle  Desired angle (relative to global reference established at last Gyro Reset).
-     * @return  error angle: Degrees in the range +/- 180. Centered on the robot's frame of reference
-     *          +ve error means the robot should turn LEFT (CCW) to reduce error.
-     */
-    public double getError(double targetAngle) {
-
-        double robotError;
-
-        // calculate error in -179 to +180 range  (
-        robotError = targetAngle - gyro.getIntegratedZValue();
-        while (robotError > 180)  robotError -= 360;
-        while (robotError <= -180) robotError += 360;
-        return robotError;
-    }
-
-    /**
-     * returns desired steering force.  +/- 1 range.  +ve = steer left
-     * @param error   Error angle in robot relative degrees
-     * @param PCoeff  Proportional Gain Coefficient
-     * @return
-     */
-    public double getSteer(double error, double PCoeff) {
-        return Range.clip(error * PCoeff, -1, 1);
-    }
 
 }
 

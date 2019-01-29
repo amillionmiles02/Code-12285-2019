@@ -139,15 +139,15 @@ public class AutoByGyro extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         // Put a hold after each turn
-        gyroDrive(robot.HALF_SPEED, 48.0, 0.0);    // Drive FWD 48 inches
-        gyroTurn(robot.TURN_SPEED, -45.0);         // Turn  CCW to -45 Degrees
-        gyroHold(robot.TURN_SPEED, -45.0, 0.5);    // Hold -45 Deg heading for a 1/2 second
-        gyroDrive(robot.HALF_SPEED, 12.0, -45.0);  // Drive FWD 12 inches at 45 degrees
-        gyroTurn(robot.TURN_SPEED,  45.0);         // Turn  CW  to  45 Degrees
-        gyroHold(robot.TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
-        gyroTurn(robot.TURN_SPEED,   0.0);         // Turn  CW  to   0 Degrees
-        gyroHold(robot.TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for a 1 second
-        gyroDrive(robot.HALF_SPEED,-48.0, 0.0);    // Drive REV 48 inches
+        gyroDrive(HardwareScrimmage.HALF_SPEED, 48.0, 0.0);    // Drive FWD 48 inches
+        gyroTurn(HardwareScrimmage.TURN_SPEED, -45.0);         // Turn  CCW to -45 Degrees
+        gyroHold(HardwareScrimmage.TURN_SPEED, -45.0, 0.5);    // Hold -45 Deg heading for a 1/2 second
+        gyroDrive(HardwareScrimmage.HALF_SPEED, 12.0, -45.0);  // Drive FWD 12 inches at 45 degrees
+        gyroTurn(HardwareScrimmage.TURN_SPEED,  45.0);         // Turn  CW  to  45 Degrees
+        gyroHold(HardwareScrimmage.TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
+        gyroTurn(HardwareScrimmage.TURN_SPEED,   0.0);         // Turn  CW  to   0 Degrees
+        gyroHold(HardwareScrimmage.TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for a 1 second
+        gyroDrive(HardwareScrimmage.HALF_SPEED,-48.0, 0.0);    // Drive REV 48 inches
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

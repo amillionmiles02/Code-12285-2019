@@ -1,32 +1,3 @@
-/* Copyright (c) 2018 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -53,8 +24,8 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "CraterSampleNew", group = "Concept")
-public class TensorFlowTest extends LinearOpMode {
+@Autonomous(name = "UnlatchStraight", group = "Concept")
+public class DepotSample extends LinearOpMode {
     HardwareCompOne         robot   = new HardwareCompOne();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
@@ -108,7 +79,10 @@ public class TensorFlowTest extends LinearOpMode {
 
         if (opModeIsActive()) {
             unlatch();
-            /** Activate Tensor Flow Object Detection. */
+drive();
+
+            /*
+            /** Activate Tensor Flow Object Detection.
             if (tfod != null) {
                 tfod.activate();
             }
@@ -119,51 +93,72 @@ public class TensorFlowTest extends LinearOpMode {
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
-                      telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      if (updatedRecognitions.size() == 2) {
-                        int goldMineralX = -1;
-                        int silverMineral1X = -1;
-                        int silverMineral2X = -1;
-                        for (Recognition recognition : updatedRecognitions) {
-                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                          } else if (silverMineral1X == -1) {
-                            silverMineral1X = (int) recognition.getLeft();
-                          } else {
-                            silverMineral2X = (int) recognition.getLeft();
-                          }
-                        }
-                        if (goldMineralX != -1 && silverMineral1X != -1) {
-                            if (goldMineralX < silverMineral1X) {
-                                telemetry.addData("Gold Mineral Position", "Center");
-                                runCenter();
-                                sleep(1000000);
-                            } else if (goldMineralX > silverMineral1X) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        if (updatedRecognitions.size() == 2) {
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int silverMineral2X = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    silverMineral2X = (int) recognition.getLeft();
+                                }
+                            }
+                            if (goldMineralX != -1 && silverMineral1X != -1) {
+                                if (goldMineralX < silverMineral1X) {
+                                    telemetry.addData("Gold Mineral Position", "Center");
+                                    runCenter();
+                                    sleep(1000000);
+                                } else if (goldMineralX > silverMineral1X) {
 
-                                telemetry.addData("Gold Mineral Position", "Right");
-                                runRight();
+                                    telemetry.addData("Gold Mineral Position", "Right");
+                                    runRight();
+                                    sleep(1000000);
+
+                                }
+                            }
+                            else {
+                                telemetry.addData("Gold Mineral Position", "Left");
+                                runLeft();
                                 sleep(1000000);
 
                             }
                         }
-                        else {
-                            telemetry.addData("Gold Mineral Position", "Left");
-                            runLeft();
-                            sleep(1000000);
-
-                        }
-                      }
-                      telemetry.update();
+                        telemetry.update();
                     }
-                }
-            }
+                } */
+
         }
 
-        if (tfod != null) {
-            tfod.shutdown();
-        }
+      //  if (tfod != null) {
+       //     tfod.shutdown();
+        //}
+        sleep(100000000);
     }
-
+public void drive() {
+    robot.frontLeft.setPower(-.5);
+    robot.frontRight.setPower(-.5);
+    robot.backLeft.setPower(-.5);
+    robot.backRight.setPower(-.5);
+    runtime.reset();
+    while (opModeIsActive() && (runtime.seconds() < 2)) {
+        telemetry.addData("Path : Left", "Stopping", runtime.seconds());
+        telemetry.update();
+    }
+    robot.frontLeft.setPower(0);
+    robot.frontRight.setPower(0);
+    robot.backLeft.setPower(0);
+    robot.backRight.setPower(0);
+    runtime.reset();
+    while (opModeIsActive() && (runtime.seconds() < 1)) {
+        telemetry.addData("Path : Left", "Stopping", runtime.seconds());
+        telemetry.update();
+    }
+    idle();
+}
     /**
      * Initialize the Vuforia localization engine.
      */
@@ -187,7 +182,7 @@ public class TensorFlowTest extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
@@ -262,7 +257,7 @@ public class TensorFlowTest extends LinearOpMode {
         robot.backLeft.setPower(-0.3);
         robot.backRight.setPower(0.3);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
             telemetry.addData("Path : Left", "Leg 1:Turning Left", runtime.seconds());
             telemetry.update();
         }
@@ -280,7 +275,7 @@ public class TensorFlowTest extends LinearOpMode {
         robot.backLeft.setPower(0.3);
         robot.backRight.setPower(0.3);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
             telemetry.addData("Path : Left", "Leg 2: Driving Forward", runtime.seconds());
             telemetry.update();
         }
@@ -311,12 +306,12 @@ public class TensorFlowTest extends LinearOpMode {
             telemetry.addData("Path : Left", "Stopping", runtime.seconds());
             telemetry.update();
         }
-        robot.frontLeft.setPower(1);
-        robot.frontRight.setPower(1);
-        robot.backLeft.setPower(1);
-        robot.backRight.setPower(1);
+        robot.frontLeft.setPower(0.6);
+        robot.frontRight.setPower(0.6);
+        robot.backLeft.setPower(0.6);
+        robot.backRight.setPower(0.6);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
+        while (opModeIsActive() && (runtime.seconds() < 1)) {
             telemetry.addData("Path : Left", "Stopping", runtime.seconds());
             telemetry.update();
         }
@@ -324,24 +319,21 @@ public class TensorFlowTest extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
-        robot.knocker.setPosition(robot.DOWN);
-
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 0.3)) {
             telemetry.addData("Path : Left", "Stopping", runtime.seconds());
             telemetry.update();
         }
 
-
     }
     public void runCenter() {
-        robot.frontLeft.setPower(-.5);
-        robot.frontRight.setPower(-.5);
-        robot.backLeft.setPower(-.5);
-        robot.backRight.setPower(-.5);
+        robot.frontLeft.setPower(0.5);
+        robot.frontRight.setPower(.5);
+        robot.backLeft.setPower(.5);
+        robot.backRight.setPower(.5);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
-            telemetry.addData("Path : Left", "Stopping", runtime.seconds());
+        while (opModeIsActive() && (runtime.seconds() < 1)) {
+            telemetry.addData("Path : Center", "Leg 1: Driving Straight", runtime.seconds());
             telemetry.update();
         }
         robot.frontLeft.setPower(0);
@@ -349,11 +341,46 @@ public class TensorFlowTest extends LinearOpMode {
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1)) {
-            telemetry.addData("Path : Left", "Stopping", runtime.seconds());
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
+            telemetry.addData("Path : Center", "Stopping", runtime.seconds());
             telemetry.update();
         }
-        idle();
+        robot.frontLeft.setPower(-0.5);
+        robot.frontRight.setPower(.5);
+        robot.backLeft.setPower(-.5);
+        robot.backRight.setPower(.5);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+            telemetry.addData("Path : Center", "Leg 2: Turning Left", runtime.seconds());
+            telemetry.update();
+        }
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
+            telemetry.addData("Path : Center", "Stopping", runtime.seconds());
+            telemetry.update();
+        }
+        robot.frontLeft.setPower(0.3);
+        robot.frontRight.setPower(0.3);
+        robot.backLeft.setPower(0.3);
+        robot.backRight.setPower(0.3);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < .5)) {
+            telemetry.addData("Path : Center", "Leg 3: Go orward", runtime.seconds());
+            telemetry.update();
+        }
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
+            telemetry.addData("Path : Center", "Stopping", runtime.seconds());
+            telemetry.update();
+        }
     }
     public void runRight() {
         robot.frontLeft.setPower(0.5);
@@ -397,7 +424,6 @@ public class TensorFlowTest extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
-        robot.knocker.setPosition(robot.DOWN);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1)) {
             telemetry.addData("Path: Right", "Stopping", runtime.seconds());
